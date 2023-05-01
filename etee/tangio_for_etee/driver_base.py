@@ -300,6 +300,7 @@ class SerialReader(object):
         start_time = time.time()
         while time.time() - start_time < timeout:
             data = self.readline(delim=[b"\xff\xff", b"\r\n"])
+#           TODO: still print out the data if the structure doesn't fulfill below two format to see if there's any data missing.
             if b"\xff\xff" == data[-self.end_bytes:] and len(data) == self.data_bytes + self.end_bytes:
                 data = data[0:-self.end_bytes]
                 events = self.raw2data(data)
